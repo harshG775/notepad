@@ -33,21 +33,22 @@ export default function Reducer_db(state, { actionType, payload }) {
 
 
         case Actions.CREATE: {
+            localStorage.setItem("notes", JSON.stringify(payload));
 			return {
 				...state,
-				user: payload,
+				notes: payload,
 			};
 		}
         case Actions.UPDATE: {
 			return {
 				...state,
-				user: payload,
+				notes: payload,
 			};
 		}
         case Actions.DELETE: {
 			return {
 				...state,
-				user: payload,
+				notes: payload,
 			};
 		}
 
