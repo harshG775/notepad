@@ -1,7 +1,7 @@
-import Context_db from "../../../store/Context_db";
+import Context_db from "@/store/Context_db";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import {Actions} from "../../../store/Reducer_db";
+import {Actions} from "@/store/Reducer_db";
 export default function CreateNote({onSaveChanges}) {
     const { register, handleSubmit } = useForm();
     // eslint-disable-next-line no-unused-vars

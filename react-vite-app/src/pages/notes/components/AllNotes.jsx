@@ -1,8 +1,11 @@
 
-import Context_db from "../../../store/Context_db";
-import { useContext } from "react";
-import { Actions } from "../../../store/Reducer_db";
-
+import Context_db from "@/store/Context_db";
+import { useContext, useState } from "react";
+import { Actions } from "@/store/Reducer_db";
+import Dialog from "@/components/Dialog";
+// function EditNote() {
+//     return <div>dialog</div>;
+// }
 function Note(props) {
     const { note } = props;
     const [state, dispatch] = useContext(Context_db);
@@ -33,6 +36,7 @@ function Note(props) {
 export default function AllNotes() {
     // eslint-disable-next-line no-unused-vars
     const [state, _] = useContext(Context_db);
+    const [isEditorOpen, setIsEditorOpen] = useState(false);
     return (
         <div>
             <div>All Notes</div>
@@ -42,6 +46,9 @@ export default function AllNotes() {
                 ))}
             </ul>
             {state?.notes.length === 0 && <div>No Notes</div>}
+            <Dialog {...{ isEditorOpen, setIsEditorOpen }}>
+
+            </Dialog>
         </div>
     )
 }

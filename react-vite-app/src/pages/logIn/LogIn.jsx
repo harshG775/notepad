@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import Context_db from "../../store/Context_db";
-import { Actions } from "../../store/Reducer_db";
+import Context_db from "@/store/Context_db";
+import { Actions } from "@/store/Reducer_db";
 export default function LogIn() {
     const [state, dispatch] = useContext(Context_db);
 	const { register, handleSubmit } = useForm();

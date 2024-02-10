@@ -8,6 +8,11 @@ export default defineConfig({
 		port: 4000,
 		host:true
 	},
+    resolve:{
+        alias:{
+            "@": "/src"
+        }
+    }
 	// build: {
 	// 	outDir: "../server/public",
 	// }

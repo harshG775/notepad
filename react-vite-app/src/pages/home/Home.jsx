@@ -1,7 +1,7 @@
 //App.jsx
 import { useContext } from "react";
-import Context_db from "../../store/Context_db";
-import { Actions } from "../../store/Reducer_db";
+import Context_db from "@/store/Context_db";
+import { Actions } from "@/store/Reducer_db";
 
 export default function Home() {
 	const [state, dispatch] = useContext(Context_db);
