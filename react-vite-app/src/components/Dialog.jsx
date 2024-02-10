@@ -1,4 +1,4 @@
-export default function Dialog({ children, isOpen, setIsOpen }) {
+export default function Dialog({ children, isOpen, setIsOpen,btnLabel="open" }) {
     const handleToggle = () => setIsOpen(prev=>!prev);
 	return (
         <>
@@ -18,7 +18,7 @@ export default function Dialog({ children, isOpen, setIsOpen }) {
                 </div>
             </div>
             <div>
-				<button onClick={handleToggle}>open</button>
+				<button onClick={handleToggle}>{btnLabel}</button>
 			</div>
         </>
 	);

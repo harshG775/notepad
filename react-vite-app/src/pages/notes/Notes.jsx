@@ -9,7 +9,7 @@ export default function Notes() {
 		<div className="min-h-[calc(100vh-40px)] bg-neutral-900  text-neutral-50">
 			<AllNotes/>
 
-			<Dialog {...{ isOpen, setIsOpen }}>
+			<Dialog {...{ isOpen, setIsOpen }} btnLabel="Add Note">
 			<CreateNote onSaveChanges={onSaveChanges}/>
             </Dialog>
 		</div>

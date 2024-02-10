@@ -5,7 +5,7 @@ export const Actions = {
 	LOGOUT: "logout",
 
 	CREATE: "CREATE",
-	UPDATE: "UPDATE",
+	EDIT: "EDIT",
 	DELETE: "DELETE",
 };
 export default function Reducer_db(state, { actionType, payload }) {
@@ -39,7 +39,8 @@ export default function Reducer_db(state, { actionType, payload }) {
 				notes: payload,
 			};
 		}
-        case Actions.UPDATE: {
+        case Actions.EDIT: {
+            localStorage.setItem("notes", JSON.stringify(payload));
 			return {
 				...state,
 				notes: payload,
