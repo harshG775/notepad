@@ -6,6 +6,7 @@ import Home from "./pages/home/Home.jsx";
 import SignUp from "./pages/signUp/SignUp.jsx";
 import LogIn from "./pages/logIn/LogIn.jsx";
 import Notes from "./pages/notes/Notes.jsx";
+import NoteBoard from "./pages/note-board/NoteBoard.jsx";
 
 export default function AppRoutes() {
 	const Routes = createBrowserRouter([
@@ -31,6 +32,10 @@ export default function AppRoutes() {
 				},
 			],
 		},
+        {
+            path: "note-board",
+            element: <NoteBoard/>,
+        },
 		{
 			path: "*",
 			element: "<PageNotFound />",
