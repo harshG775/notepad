@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion"
 const DEFAULT_CARDS = [
 	// BACKLOG
 	{ title: "Look into render bug in dashboard", id: "1", column: "backlog" },
@@ -40,13 +41,18 @@ function DropIndicator(props) {
 	);
 }
 function Card(props) {
-    const { title, id, column } = props;
+    const { title, id, column ,handleDragStart} = props;
     return(
         <li>
             <DropIndicator beforeId={id} column={column}/>
-            <div draggable="true" className=" cursor-grab rounded border border-neutral-700 bg-neutral-800 p-3 active:cursor-grabbing">
+            <motion.div
+                layout
+                layoutId={id}
+                draggable="true"
+                onDragStart={e=>handleDragStart(e,title, id, column)}
+                className=" cursor-grab rounded border border-neutral-700 bg-neutral-800 p-3 active:cursor-grabbing">
                 <p className="text-sm text-neutral-100">{title}</p>
-            </div>
+            </motion.div>
         </li>
     )
 }
@@ -69,7 +75,7 @@ function AddCard(props) {
     return (
         <>
         {adding
-            ?<form onSubmit={handleAdd}>
+            ?<motion.form layout onSubmit={handleAdd}>
                 <div>
                     <label htmlFor="card-title">card title</label>
                     <textarea
@@ -94,8 +100,9 @@ function AddCard(props) {
                         <span>Add</span>
                     </button>
                 </div>
-            </form>
-            :<button
+            </motion.form>
+            :<motion.button 
+                layout
                 type="button"
                 onClick={() => {
                     setAdding(true);
@@ -103,7 +110,7 @@ function AddCard(props) {
                 className="w-full rounded border border-neutral-700 bg-neutral-800 p-3 text-sm text-neutral-100"
                 >
                 <span>Add Card</span>
-            </button>
+            </motion.button>
         }
         </>
     )
@@ -111,6 +118,9 @@ function AddCard(props) {
 function Column(props) {
 	const { title, headingColor, column, cards, setCards } = props;
 	const [active, setActive] = useState(true);
+    const handleDragStart = (e,title,id) => {
+        e.dataTransfer.setData("cardId",id);
+    }
     const filteredCards = cards.filter((card) => card.column === column);
 	return (
 		<div className="w-56 shrink-0">
@@ -122,7 +132,7 @@ function Column(props) {
 			</div>
 			<ul className={`h-full w-full transition-colors ${active ? "bg-neutral-800/50" : "bg-neutral-800/0"}`}>
                 {filteredCards.map((card) => (
-                    <Card key={card.id} {...card} />
+                    <Card key={card.id} {...card} handleDragStart={handleDragStart}/>
                 ))}
                 <li><AddCard column={column} setCards={setCards}/></li>
             </ul>
@@ -132,9 +142,27 @@ function Column(props) {
 }
 const BurnBarrel = ({ setCards }) => {
     const [active, setActive] = useState(false);
-  
+    const handleDragOver = (e) => {
+        e.preventDefault();
+        setActive(true);
+    }
+    const handleDragLeave = (e) => {
+        e.preventDefault();
+        setActive(false);
+    }
+    const handleDrop = (e) => {
+        e.preventDefault();
+        setActive(false);
+        const cardId = e.dataTransfer.getData("cardId");
+        console.log(cardId);
+        setCards(prev=>prev.filter((card)=>card.id !== cardId));
+    }
     return (
-		<div className={`mt-10 grid h-56 w-56 shrink-0 place-content-center rounded border text-3xl ${
+		<div 
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+            className={`mt-10 grid h-56 w-56 shrink-0 place-content-center rounded border text-3xl ${
 				active
 					? "border-red-800 bg-red-800/20 text-red-500"
 					: "border-neutral-500 bg-neutral-500/20 text-neutral-500"
