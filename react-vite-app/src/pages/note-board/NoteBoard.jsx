@@ -117,9 +117,21 @@ function AddCard(props) {
 }
 function Column(props) {
 	const { title, headingColor, column, cards, setCards } = props;
-	const [active, setActive] = useState(true);
+	const [active, setActive] = useState(false);
     const handleDragStart = (e,title,id) => {
         e.dataTransfer.setData("cardId",id);
+    }
+    const handleDragOver = (e) => {
+        e.preventDefault();
+        setActive(true);
+    }
+    const handleDragLeave = (e) => {
+        e.preventDefault();
+        setActive(false);
+    }
+    const handleDragEnd = (e) => {
+        e.preventDefault();
+        setActive(false);
     }
     const filteredCards = cards.filter((card) => card.column === column);
 	return (
@@ -130,7 +142,11 @@ function Column(props) {
 					{filteredCards.length}
 				</span>
 			</div>
-			<ul className={`h-full w-full transition-colors ${active ? "bg-neutral-800/50" : "bg-neutral-800/0"}`}>
+			<ul
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDragEnd}
+                className={`h-full w-full transition-colors ${active ? "bg-neutral-800/50" : "bg-neutral-800/0"}`}>
                 {filteredCards.map((card) => (
                     <Card key={card.id} {...card} handleDragStart={handleDragStart}/>
                 ))}
