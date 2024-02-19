@@ -204,9 +204,9 @@ function Column(props) {
                 {filteredCards.map((card) => (
                     <Card key={card.id} {...card} handleDragStart={handleDragStart}/>
                 ))}
+                <li><DropIndicator beforeId={"-1"} column={column}/></li>
                 <li><AddCard column={column} setCards={setCards}/></li>
             </ul>
-            <DropIndicator beforeId={"-1"} column={column}/>
 		</div>
 	);
 }
