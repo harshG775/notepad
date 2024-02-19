@@ -123,15 +123,49 @@ function Column(props) {
     }
     const handleDragOver = (e) => {
         e.preventDefault();
+        heighLighterIndicator(e)
         setActive(true);
+    }
+    const heighLighterIndicator = (e) => {
+        const indicators = getIndicator();
+        clearHeighLights(indicators);
+        const el = getNearestIndicator(e,indicators);
+        el.element.style.opacity = "1";
+    }
+    const clearHeighLights = (els) => {
+        const indicators =els||getIndicator();
+        indicators.forEach((el)=>{
+            el.style.opacity = "0";
+        })
+    }
+    const getNearestIndicator = (e,indicators) => {
+        const DISTANCE_OFFSET = 50;
+        const el = indicators.reduce((closest, child) => {
+            const box = child.getBoundingClientRect();
+            const offset = e.clientY - (box.top+DISTANCE_OFFSET);
+            if(offset < 0 && offset > closest.offset) {
+                return { offset: offset, element: child };
+            }else {
+                return closest;
+            }
+        }, {
+			offset: Number.NEGATIVE_INFINITY,
+			element: indicators[indicators.length - 1],
+		});
+        return el;
+    }
+    const getIndicator = () => {
+        return Array.from(document.querySelectorAll(`[data-column="${column}"]`))
     }
     const handleDragLeave = (e) => {
         e.preventDefault();
         setActive(false);
+        clearHeighLights()
     }
     const handleDragEnd = (e) => {
         e.preventDefault();
         setActive(false);
+        clearHeighLights()
     }
     const filteredCards = cards.filter((card) => card.column === column);
 	return (
