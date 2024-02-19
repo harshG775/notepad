@@ -166,6 +166,26 @@ function Column(props) {
         e.preventDefault();
         setActive(false);
         clearHeighLights()
+        const cardId = e.dataTransfer.getData("cardId");
+        const indicators = getIndicator();
+        const {element} = getNearestIndicator(e,indicators);
+        const before = element.dataset.before || "-1";
+        if (before !== cardId) {
+            let copy = [...cards];
+            let cardToTransfer = copy.find((card) => card.id === cardId);
+            if(!cardToTransfer) return;
+            cardToTransfer = {...cardToTransfer, column};
+            copy = copy.filter((card) => card.id !== cardId);
+            const moveToBack = before === "-1";
+            if (moveToBack) {
+                copy.push(cardToTransfer);
+            }else {
+                const insertAtIndex = copy.findIndex((card) => card.id === before)
+                if(insertAtIndex ===undefined) return;
+                copy.splice(insertAtIndex, 0, cardToTransfer);
+            }
+            setCards(copy);
+        }
     }
     const filteredCards = cards.filter((card) => card.column === column);
 	return (
