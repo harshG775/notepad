@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Column from "./components/Column";
+import BurnBarrel from "./components/BurnBarrel";
 
 const notesData = [
     {
@@ -36,31 +37,44 @@ export default function Notes() {
             ]
         })
     }
+    const handleDeleteCard = (newCard)=>{
+        setNotes((prev)=>{
+            return [
+                ...prev,
+                newCard
+            ]
+        })
+    }
 	return (
-		<ul className="min-h-[calc(100vh-40px)] overflow-x-auto bg-neutral-900  text-neutral-50
-            grid grid-cols-[repeat(4,200px)] gap2 p-2
-        ">
-            <Column 
-                notes={notes} 
-                type={"todo"}
-                handleAddCard={handleAddCard}
+        <>
+            <BurnBarrel
+                handleDeleteCard={handleDeleteCard}
             />
-            <Column 
-                notes={notes} 
-                type={"in-progress"}
-                handleAddCard={handleAddCard}
-            />
-            <Column 
-                notes={notes} 
-                type={"completed"}
-                handleAddCard={handleAddCard}
-            />
-            <Column 
-                notes={notes} 
-                type={"on-hold"}
-                handleAddCard={handleAddCard}
-            />
-		</ul>
+            <ul className="min-h-[calc(100vh-40px)] overflow-x-auto bg-neutral-900  text-neutral-50
+                grid grid-cols-[repeat(4,200px)] gap-2 p-2
+            ">
+                <Column 
+                    notes={notes} 
+                    type={"todo"}
+                    handleAddCard={handleAddCard}
+                />
+                <Column 
+                    notes={notes} 
+                    type={"in-progress"}
+                    handleAddCard={handleAddCard}
+                />
+                <Column 
+                    notes={notes} 
+                    type={"completed"}
+                    handleAddCard={handleAddCard}
+                />
+                <Column 
+                    notes={notes} 
+                    type={"on-hold"}
+                    handleAddCard={handleAddCard}
+                />
+            </ul>
+        </>
 	);
 }
 
