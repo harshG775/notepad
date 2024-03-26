@@ -37,12 +37,9 @@ export default function Notes() {
             ]
         })
     }
-    const handleDeleteCard = (newCard)=>{
+    const handleDeleteCard = (CardId)=>{
         setNotes((prev)=>{
-            return [
-                ...prev,
-                newCard
-            ]
+            return prev.filter((card)=>card.id !== CardId)
         })
     }
 	return (

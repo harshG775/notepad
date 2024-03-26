@@ -16,9 +16,14 @@ export default function Column(props) {
         e.preventDefault()
         setActive(false)
     }
+    const handleDragStart = (e,id) => {
+        e.dataTransfer.setData("cardId",id)
+    }
     const handleDrop = (e) => {
         e.preventDefault()
         setActive(false)
+        console.log(e.dataTransfer.getData("cardId"))
+
     }
     return (
         <li 
@@ -30,7 +35,7 @@ export default function Column(props) {
             <ul className={`${active?"bg-neutral-900/90":""}   text-neutral-50 space-y-2 gap-2 rounded-md min-h-96`}>
                 {filteredNotes.length > 0 && 
                     filteredNotes?.map((note)=>(
-                        <Card key={note.id} note={note}/>
+                        <Card key={note.id} note={note} handleDragStart={handleDragStart}/>
                     )
                 )}
                 <AddCard handleAddCard={handleAddCard} type={type}/>

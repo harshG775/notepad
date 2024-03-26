@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-export default function BurnBarrel() {
-    // const { handleDeleteCard } = props
+export default function BurnBarrel(props) {
+    const { handleDeleteCard } = props
     const [active, setActive] = useState(false);
     const handleDragOver = (e) => {
         e.preventDefault()
@@ -14,7 +14,7 @@ export default function BurnBarrel() {
     const handleDrop = (e) => {
         e.preventDefault()
         setActive(false)
-        // handleDeleteCard()
+        handleDeleteCard(e.dataTransfer.getData("cardId"))
     }
     return (
         <div
