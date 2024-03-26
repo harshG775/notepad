@@ -50,7 +50,7 @@ export default function Notes() {
             <BurnBarrel
                 handleDeleteCard={handleDeleteCard}
             />
-            <ul className="min-h-[calc(100vh-40px)] overflow-x-auto bg-neutral-900  text-neutral-50
+            <ul className="min-h-[calc(100vh-40px)] overflow-x-auto   text-neutral-50
                 grid grid-cols-[repeat(4,200px)] gap-2 p-2
             ">
                 <Column 

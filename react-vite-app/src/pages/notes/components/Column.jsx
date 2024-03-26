@@ -21,13 +21,13 @@ export default function Column(props) {
         setActive(false)
     }
     return (
-        <li className={active?"bg-neutral-800/50":""} 
+        <li 
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         >
             <h2 className="uppercase whitespace-nowrap font-bold text-blue-700">{title} : {filteredNotes.length}</h2>
-            <ul className="bg-neutral-900  text-neutral-50 grid gap-2">
+            <ul className={`${active?"bg-neutral-900/90":""}   text-neutral-50 space-y-2 gap-2 rounded-md min-h-96`}>
                 {filteredNotes.length > 0 && 
                     filteredNotes?.map((note)=>(
                         <Card key={note.id} note={note}/>
