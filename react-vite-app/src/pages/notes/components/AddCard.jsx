@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import {motion} from "framer-motion"
 export default function AddCard(props) {
     const [adding,setAdding]=useState();
     const { handleAddCard ,type} = props;
@@ -12,7 +13,9 @@ export default function AddCard(props) {
         })
     }
     return (
-        <div>
+        <motion.div
+        layout
+        >
             {adding?
             <form onSubmit={handleSubmit(onSubmit)}>
                 <textarea className="w-full bg-slate-800 p-2 rounded-md"
@@ -37,6 +40,6 @@ export default function AddCard(props) {
                 Add Note
             </button>
             }
-        </div>
+        </motion.div>
     );
 }
