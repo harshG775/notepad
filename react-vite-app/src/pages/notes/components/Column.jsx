@@ -2,11 +2,9 @@ import { useState } from "react";
 import AddCard from "./AddCard";
 import Card from "./Card";
 export default function Column(props) {
-    const { notes,type,handleAddCard } = props;
+    const { notes,setNotes,type,handleAddCard } = props;
     const [active,setActive] = useState(false)
     const title = type.replace("-"," ")
-    const filteredNotes = notes.filter((e)=>e.type===type)
-    
 
     const handleDragOver = (e) => {
         e.preventDefault()
@@ -22,9 +20,24 @@ export default function Column(props) {
     const handleDrop = (e) => {
         e.preventDefault()
         setActive(false)
-        console.log(e.dataTransfer.getData("cardId"))
+        const draggedCardId= e.dataTransfer.getData("cardId");
+        const copyNotes = [...notes]
+        const newCardData = copyNotes.find((note)=>note.id === draggedCardId)
+        if(newCardData.type===type){
+            return
+        }
+        newCardData.type=type
+        /* deleted from old column */
+        const  filteredNotes = notes.filter((note)=>note.id !== draggedCardId)
+        setNotes([...filteredNotes,newCardData])
+
+        
+
+        
 
     }
+    const filteredNotes = notes.filter((e)=>e.type===type)
+
     return (
         <li 
         onDragOver={handleDragOver}

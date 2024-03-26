@@ -52,21 +52,25 @@ export default function Notes() {
             ">
                 <Column 
                     notes={notes} 
+                    setNotes={setNotes} 
                     type={"todo"}
                     handleAddCard={handleAddCard}
                 />
                 <Column 
                     notes={notes} 
+                    setNotes={setNotes} 
                     type={"in-progress"}
                     handleAddCard={handleAddCard}
                 />
                 <Column 
                     notes={notes} 
+                    setNotes={setNotes} 
                     type={"completed"}
                     handleAddCard={handleAddCard}
                 />
                 <Column 
                     notes={notes} 
+                    setNotes={setNotes} 
                     type={"on-hold"}
                     handleAddCard={handleAddCard}
                 />
